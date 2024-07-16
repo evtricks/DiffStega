@@ -1,6 +1,29 @@
-## DiffStega
+## DiffStega [![arXiv](https://img.shields.io/badge/arXiv-<2407.10459>-<COLOR>.svg)](https://arxiv.org/abs/2407.10459)
 
-[IJCAI 2024] Official PyTorch implementation for the paper "DiffStega: Towards Universal Training-Free Coverless Image Steganography with Diffusion Models"
+[IJCAI 2024] Official PyTorch implementation for the paper "DiffStega: Towards Universal Training-Free Coverless Image Steganography with Diffusion Models". 
+The paper is available at [arxiv](https://arxiv.org/abs/2407.10459).
+
+## Introduction
+
+Recent works have utilized text prompts as keys in Coverless image steganography (CIS) through diffusion models. However, this approach faces three challenges: 
+
+- invalidated when private prompt is guessed
+- crafting public prompts for semantic diversity
+- the risk of prompt leakage during frequent transmission.
+
+To address these issues, we propose DiffStega, an innovative training-free diffusion-based CIS strategy for universal application. DiffStega uses a *password-dependent* reference image as an image prompt alongside the text, ensuring that only authorized parties can retrieve the hidden information. Furthermore, we develop *Noise Flip* technique to further secure the steganography against unauthorized decryption.
+
+<div align="center">
+<img src="./assets/teaser.jpg" style="width:40%">
+</div>
+
+In this scenario, Alice represents a military organization that Eve regards as a target for espionage. Instead of using text prompt 1 as private key for diffusion-based CIS like previous work ([CRoSS](https://github.com/vvictoryuki/CRoSS)), DiffStega uses *pre-determined password* as private key, and *null-text* as prompt 1. DiffStega has no risk of text prompt leakage, and can encrypt the original image with *arbitrary prompts*.
+
+<div align="center">
+<img src="./assets/controllability.jpg" style="width:90%">
+</div>
+
+The encrypted and recovered images of DiffStega with different controls (bottom right) and checkpoints of diffusion models. Our pipeline is flexible and applicable to many different modules, bring better imperceptibility while maintaining satisfying recovery results. Note that we still use null-text as prompt 1.
 
 ## Setup
 Download ip-adapter models and put them into `./pretrained_models`:
@@ -74,9 +97,9 @@ It will produce results in the output folder.
 - Reference image with **correct password**: `<name>`\_ref_pw_`<correct password>`.png
 - Reference image with **wrong password**: `<name>`\_wrg_pw_`<wrong password>`.png
 
-## Test on Unistega
+## Test on Unistega dataset
 
-You can download Unistega from this [link](https://drive.google.com/file/d/1ITaNvYAP8hB32TxwEo4Rdf-515plUOdA/view). Please unzip it into `./dataset` folder. The file structure should be
+You can download Unistega dataset from this [link](https://drive.google.com/file/d/1ITaNvYAP8hB32TxwEo4Rdf-515plUOdA/view). Please unzip it into `./dataset` folder. The file structure should be
 
 ```angular2html
 project
@@ -108,31 +131,6 @@ python main.py --yaml_path ./dataset/UniStega/content_prompts/config.yaml --save
 python main.py --yaml_path ./dataset/UniStega/style_prompts/config.yaml --save_path ./output/UniStega_style --null_prompt1 --edit_strength 0.7 --single_model --rand_seed --optional_control auto
 ```
 
-## Introduction
-
-Recent works have utilized text prompts as keys in Coverless image steganography (CIS) through diffusion models. However, this approach faces three challenges: 
-
-- invalidated when private prompt is guessed
-- crafting public prompts for semantic diversity
-- the risk of prompt leakage during frequent transmission.
-
-To address these issues, we propose DiffStega, an innovative training-free diffusion-based CIS strategy for universal application. DiffStega uses a *password-dependent* reference image as an image prompt alongside the text, ensuring that only authorized parties can retrieve the hidden information. Furthermore, we develop *Noise Flip* technique to further secure the steganography against unauthorized decryption.
-
-<div align="center">
-<img src="./assets/teaser.jpg" style="width:40%">
-</div>
-
-In this scenario, Alice represents a military organization that Eve regards as a target for espionage. Instead of using text prompt 1 as private key for diffusion-based CIS like previous work ([CRoSS](https://github.com/vvictoryuki/CRoSS)), DiffStega uses *pre-determined password* as private key, and *null-text* as prompt 1. DiffStega has no risk of text prompt leakage, and can encrypt the original image with *arbitrary prompts*.
-
-<div align="center">
-<img src="./assets/controllability.jpg" style="width:90%">
-</div>
-
-The encrypted and recovered images of DiffStega with different controls (bottom right) and checkpoints of diffusion models. Our pipeline is flexible and applicable to many different modules, bring better imperceptibility while maintaining satisfying recovery results. Note that we still use null-text as prompt 1.
-
-## Acknowledgement
-Part of the code is borrowed from [CRoSS](https://github.com/vvictoryuki/CRoSS).
-
 ## Citation
 If this work is helpful for your research, please consider citing the following BibTeX entry.
 
@@ -144,3 +142,5 @@ If this work is helpful for your research, please consider citing the following 
   year={2024}
 }
 ```
+
+Acknowledgement: part of the code is borrowed from [CRoSS](https://github.com/vvictoryuki/CRoSS).
