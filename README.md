@@ -65,7 +65,7 @@ Our test environment is CUDA 12.2, Windows 11 professional 23H2
 ## Quick run
 ```bash
 # test for style prompt
-python main.py --image_path ./example/flickr_dog_000054.jpg --prompt1 "" --prompt2 "a painting by Vincent Willem van Gogh" --save_path ./output/test --optional_control none --edit_strength 0.7 --single_model --rand_seed
+python main.py --image_path ./example/flickr_dog_000054.jpg --prompt1 "" --prompt2 "a painting by Vincent Willem van Gogh" --save_path ./output/test --optional_control none --edit_strength 0.7 --single_model --rand_pw
 
 # test for content prompt
 python main.py --image_path ./example/000000132622.png --prompt1 "" --prompt2 "a wild boar walking through a lush green field" --save_path ./output/test --optional_control seg
@@ -128,7 +128,7 @@ python main.py --yaml_path ./dataset/UniStega/similar_prompts/config.yaml --save
 python main.py --yaml_path ./dataset/UniStega/content_prompts/config.yaml --save_path ./output/UniStega_content --null_prompt1 --optional_control auto
 
 # for style prompts
-python main.py --yaml_path ./dataset/UniStega/style_prompts/config.yaml --save_path ./output/UniStega_style --null_prompt1 --edit_strength 0.7 --single_model --rand_seed --optional_control auto
+python main.py --yaml_path ./dataset/UniStega/style_prompts/config.yaml --save_path ./output/UniStega_style --null_prompt1 --edit_strength 0.7 --single_model --rand_pw --optional_control auto
 ```
 
 ## Citation
